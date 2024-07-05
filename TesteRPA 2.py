@@ -1,3 +1,18 @@
+"""
+This script demonstrates web automation using Selenium WebDriver with Chrome.
+It navigates to Google, searches for "download python", clicks on the first search result,
+navigates to the desired download link, and clicks the final download link.
+
+Requirements:
+- Python 3.x
+- Selenium WebDriver
+- Chrome WebDriver (automatically managed by ChromeDriverManager)
+
+Usage:
+1. Ensure Python and necessary libraries are installed.
+2. Run the script to automate web interactions.
+"""
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -7,46 +22,62 @@ from selenium.webdriver.chrome.service import Service as ServiceChrome
 from webdriver_manager.chrome import ChromeDriverManager
 
 class Driver:
+    """
+    A class to manage the Chrome WebDriver instance using Selenium.
+
+    Methods:
+    - chrome(): Initializes and returns a Chrome WebDriver instance.
+    """
+
     def __init__(self) -> None:
         self._service_chrome = None
         self._driver = None
 
     def chrome(self) -> webdriver:
+        """
+        Initialize the Chrome WebDriver instance.
+
+        Returns:
+        webdriver: Chrome WebDriver instance.
+        
+        Raises:
+        ConnectionError: If unable to start the Chrome browser.
+        """
         try:
             self._service_chrome = ServiceChrome(executable_path=ChromeDriverManager().install())
             self._driver = webdriver.Chrome(service=self._service_chrome)
         except Exception as e:
-            raise ConnectionError('Erro ao iniciar navegador') from e
+            raise ConnectionError('Failed to initialize browser') from e
         
         return self._driver
 
-# Inicializa o Driver
+# Initialize the Driver
 driver_manager = Driver()
 driver = driver_manager.chrome()
 
 try:
-    # Abre a página do Google
+    # Open Google page
     driver.get("https://www.google.com/")
 
-    # Cria um WebDriverWait
+    # Create WebDriverWait
     wait = WebDriverWait(driver, 10)
 
-    # Espera o campo de busca ser clicável e envia a busca
+    # Wait for search box to be clickable and send search query
     search_box = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="APjFqb"]')))
-    search_box.send_keys("baixar python")
+    search_box.send_keys("download python")
     search_box.send_keys(Keys.RETURN)
 
-    # Espera e clica no primeiro resultado da busca
+    # Wait for and click the first search result
     first_result = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="rso"]/div[1]/div/div/div/div/div/div/div/div[1]/div/span/a/h3')))
     first_result.click()
 
-    # Espera e clica no link desejado na página seguinte
+    # Wait for and click the desired download link on the next page
     download_link = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="content"]/div/section/div[2]/ol/li[3]/span[1]/a')))
     download_link.click()
 
-    # Espera e clica no link final de download
+    # Wait for and click the final download link
     final_download_link = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="content"]/div/section/article/table/tbody/tr[4]/td[1]/a')))
     final_download_link.click()
 
 except Exception as e:
-    print(f"Ocorreu um erro: {e}")
+    print(f"An error occurred: {e}")
