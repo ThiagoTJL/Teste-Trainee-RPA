@@ -3,14 +3,6 @@ This script demonstrates web automation using Selenium WebDriver with Chrome.
 It navigates to Google, searches for "download python", clicks on the first search result,
 navigates to the desired download link, and clicks the final download link.
 
-Requirements:
-- Python 3.x
-- Selenium WebDriver
-- Chrome WebDriver (automatically managed by ChromeDriverManager)
-
-Usage:
-1. Ensure Python and necessary libraries are installed.
-2. Run the script to automate web interactions.
 """
 
 from selenium import webdriver
