@@ -18,9 +18,13 @@ Este projeto é uma automação web que utiliza Selenium WebDriver com Chrome. E
 ```sh
 python -m venv venv
 source venv/bin/activate   # No Windows use: venv\Scripts\activate
-
+```
 ## Instalar Dependências
+```sh
 pip install selenium webdriver_manager pymongo
+```
 
 ## Como Rodar o Robô
+```sh
 python main.py
+```
