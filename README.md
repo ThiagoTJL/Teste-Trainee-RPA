@@ -7,6 +7,8 @@ Este projeto é uma automação web que utiliza Selenium WebDriver com Chrome. E
 - selenium
 - webdriver_manager
 - pymongo
+- os
+- time
 
 ## Requisitos
 
